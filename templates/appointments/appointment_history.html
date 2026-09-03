@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Appointment History{% endblock %}
+{% block content %}
+    <h1>Appointment History</h1>
+
+    {% if appointments %}
+        <ul class="appointment-list">
+            {% for appt in appointments %}
+                <li class="appointment-card">
+                    <strong>{{ appt.dentist }}</strong> ({{ appt.dentist.specialty.name }})<br>
+                    {{ appt.date }} at {{ appt.start_time|time:"H:i" }} — {{ appt.get_status_display }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You have no past or cancelled appointments.</p>
+    {% endif %}
+
+    <p><a href="{% url 'appointments:my_appointments' %}">Back to upcoming appointments</a></p>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Dentist Appointment System{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header class="site-header">
+        <a href="{% url 'home' %}" class="logo">🦷 Dentist Appointments</a>
+        <nav>
+            <a href="{% url 'dentists:list' %}">Dentists</a>
+            {% if user.is_authenticated %}
+                <span>Hi, {{ user.first_name|default:user.username }}</span>
+                {% if user.patient_profile %}
+                    <a href="{% url 'appointments:patient_dashboard' %}">Dashboard</a>
+                    <a href="{% url 'appointments:my_appointments' %}">My Appointments</a>
+                    <a href="{% url 'appointments:history' %}">History</a>
+                    <a href="{% url 'ai_assistant:assistant' %}">AI Assistant</a>
+                {% endif %}
+                {% if user.dentist_profile %}
+                    <a href="{% url 'appointments:dentist_dashboard' %}">My Appointments</a>
+                {% endif %}
+                <a href="{% url 'accounts:profile' %}">Profile</a>
+                <form action="{% url 'accounts:logout' %}" method="post" class="inline-form">
+                    {% csrf_token %}
+                    <button type="submit" class="link-button">Logout</button>
+                </form>
+            {% else %}
+                <a href="{% url 'accounts:login' %}">Login</a>
+                <a href="{% url 'accounts:register' %}">Register</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main class="site-main">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="message {{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

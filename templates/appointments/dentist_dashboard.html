@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Dentist Dashboard{% endblock %}
+{% block content %}
+    <h1>My Appointments</h1>
+
+    {% if appointments %}
+        <ul class="appointment-list">
+            {% for appt in appointments %}
+                <li class="appointment-card">
+                    <strong>{{ appt.patient }}</strong><br>
+                    {{ appt.date }} at {{ appt.start_time|time:"H:i" }} — {{ appt.get_status_display }}
+
+                    <form method="post" action="{% url 'appointments:update_status' appt.id %}" class="inline-form status-form">
+                        {% csrf_token %}
+                        <select name="status">
+                            {% for value, label in appt.STATUS_CHOICES %}
+                                <option value="{{ value }}" {% if value == appt.status %}selected{% endif %}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit">Update Status</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You have no appointments yet.</p>
+    {% endif %}
+{% endblock %}

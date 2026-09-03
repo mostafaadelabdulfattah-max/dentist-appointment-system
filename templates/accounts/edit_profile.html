@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Edit Profile{% endblock %}
+{% block content %}
+    <h1>Edit Profile</h1>
+    <form method="post" class="form">
+        {% csrf_token %}
+        <p>
+            <label for="first_name">First name</label><br>
+            <input type="text" id="first_name" name="first_name" value="{{ user.first_name }}">
+        </p>
+        <p>
+            <label for="last_name">Last name</label><br>
+            <input type="text" id="last_name" name="last_name" value="{{ user.last_name }}">
+        </p>
+        <p>
+            <label for="email">Email</label><br>
+            <input type="email" id="email" name="email" value="{{ user.email }}">
+        </p>
+        {{ form.as_p }}
+        <button type="submit">Save Changes</button>
+    </form>
+    <p><a href="{% url 'accounts:profile' %}">Cancel</a></p>
+{% endblock %}

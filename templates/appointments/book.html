@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Book with {{ dentist }}{% endblock %}
+{% block content %}
+    <h1>Book an Appointment with {{ dentist }}</h1>
+    <p><strong>Specialty:</strong> {{ dentist.specialty.name }}</p>
+
+    <form method="post" id="booking-form">
+        {% csrf_token %}
+
+        <label for="date">Select a date:</label><br>
+        <input type="date" id="date" name="date" min="{{ today }}" required>
+
+        <div id="slots-container">
+            <p>Please select a date to see available times.</p>
+        </div>
+
+        <!-- The chosen time is stored here and sent with the form.
+             The buttons above are just a friendlier UI on top of this. -->
+        <input type="hidden" id="time" name="time">
+
+        <button type="submit" id="confirm-button" disabled>Confirm Appointment</button>
+    </form>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/booking.js' %}"></script>
+    <script>
+        initBooking({{ dentist.id }});
+    </script>
+{% endblock %}

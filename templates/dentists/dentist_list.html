@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Our Dentists{% endblock %}
+{% block content %}
+    <h1>Our Dentists</h1>
+
+    {% if dentists %}
+        <ul class="dentist-list">
+            {% for dentist in dentists %}
+                <li class="dentist-card">
+                    <a href="{% url 'dentists:detail' dentist.id %}">{{ dentist }}</a>
+                    — {{ dentist.specialty.name }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No dentists are available yet. Please check back later.</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,268 @@
+/* Basic, clean styling — plain CSS, no framework, per project constraints. */
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    background-color: #f7f9fb;
+    background-image: url('../images/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #222;
+}
+
+.site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #1e6f5c;
+    color: white;
+}
+
+.site-header .logo {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.site-header nav a,
+.site-header nav span {
+    color: white;
+    margin-left: 1rem;
+    text-decoration: none;
+}
+
+.site-header nav a:hover {
+    text-decoration: underline;
+}
+
+.inline-form {
+    display: inline;
+}
+
+.link-button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font: inherit;
+    margin-left: 1rem;
+    padding: 0;
+    text-decoration: none;
+}
+
+.link-button:hover {
+    text-decoration: underline;
+}
+
+.site-main {
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.form p {
+    margin-bottom: 1rem;
+}
+
+.form input {
+    padding: 0.5rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button[type="submit"] {
+    background-color: #1e6f5c;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #17594a;
+}
+
+.messages {
+    list-style: none;
+    padding: 0;
+}
+
+.messages .message {
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+.messages .success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.messages .error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.dentist-list {
+    list-style: none;
+    padding: 0;
+}
+
+.dentist-card {
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+}
+
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+}
+
+.schedule-table th,
+.schedule-table td {
+    border: 1px solid #ddd;
+    padding: 0.5rem;
+    text-align: left;
+}
+
+.book-button {
+    display: inline-block;
+    background-color: #1e6f5c;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+#slots-container {
+    margin: 1rem 0;
+}
+
+.slot-button {
+    background: white;
+    border: 1px solid #1e6f5c;
+    color: #1e6f5c;
+    padding: 0.4rem 0.8rem;
+    margin: 0.25rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.slot-button.selected {
+    background-color: #1e6f5c;
+    color: white;
+}
+
+.error-text {
+    color: #a94442;
+}
+
+.appointment-list {
+    list-style: none;
+    padding: 0;
+}
+
+.appointment-card {
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+}
+
+.link-button-danger {
+    background: none;
+    border: none;
+    color: #a94442;
+    cursor: pointer;
+    font: inherit;
+    padding: 0;
+    text-decoration: underline;
+    margin-top: 0.5rem;
+}
+
+textarea {
+    width: 100%;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    font: inherit;
+}
+
+.ai-recommendation {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+}
+
+.ai-recommendation .disclaimer {
+    font-style: italic;
+    color: #555;
+    border-left: 3px solid #1e6f5c;
+    padding-left: 0.75rem;
+}
+
+.ai-dentist-list {
+    list-style: none;
+    padding: 0;
+}
+
+.disclaimer {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+textarea {
+    width: 100%;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+.ai-result {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+}
+
+.status-form {
+    margin-top: 0.5rem;
+}
+
+.status-form select {
+    padding: 0.3rem;
+    margin-right: 0.5rem;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.dashboard-card {
+    background: white;
+    border-radius: 6px;
+    padding: 1.2rem;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+}
+
+.dashboard-card h2 {
+    margin-top: 0;
+    font-size: 1.1rem;
+}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}{{ dentist }}{% endblock %}
+{% block content %}
+    <p><a href="{% url 'dentists:list' %}">&larr; Back to dentist list</a></p>
+
+    <h1>{{ dentist }}</h1>
+    <p><strong>Specialty:</strong> {{ dentist.specialty.name }}</p>
+
+    {% if dentist.bio %}
+        <p>{{ dentist.bio }}</p>
+    {% endif %}
+
+    {% if dentist.phone_number %}
+        <p><strong>Phone:</strong> {{ dentist.phone_number }}</p>
+    {% endif %}
+
+    <h2>Working Schedule</h2>
+    {% if dentist.schedules.all %}
+        <table class="schedule-table">
+            <thead>
+                <tr><th>Day</th><th>Hours</th><th>Slot length</th></tr>
+            </thead>
+            <tbody>
+                {% for schedule in dentist.schedules.all %}
+                    <tr>
+                        <td>{{ schedule.get_day_of_week_display }}</td>
+                        <td>{{ schedule.start_time|time:"H:i" }} - {{ schedule.end_time|time:"H:i" }}</td>
+                        <td>{{ schedule.slot_duration_minutes }} minutes</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No working schedule has been set up for this dentist yet.</p>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        {% if user.patient_profile %}
+            <p><a href="{% url 'appointments:book' dentist.id %}" class="book-button">Book an appointment</a></p>
+        {% else %}
+            <p>Only patient accounts can book appointments.</p>
+        {% endif %}
+    {% else %}
+        <p><a href="{% url 'accounts:login' %}">Log in</a> to book an appointment.</p>
+    {% endif %}
+{% endblock %}

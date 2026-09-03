@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}My Dashboard{% endblock %}
+{% block content %}
+    <h1>Welcome back, {{ user.first_name|default:user.username }}</h1>
+
+    <div class="dashboard-grid">
+        <div class="dashboard-card">
+            <h2>Upcoming Appointments</h2>
+            {% if next_appointment %}
+                <p>Next: <strong>{{ next_appointment.dentist }}</strong>
+                   on {{ next_appointment.date }} at {{ next_appointment.start_time|time:"H:i" }}</p>
+                <p>You have {{ upcoming_count }} upcoming appointment{{ upcoming_count|pluralize }}.</p>
+            {% else %}
+                <p>You have no upcoming appointments.</p>
+            {% endif %}
+            <a href="{% url 'appointments:my_appointments' %}">View all appointments</a>
+        </div>
+
+        <div class="dashboard-card">
+            <h2>Book an Appointment</h2>
+            <p>Browse our dentists and find a time that works for you.</p>
+            <a href="{% url 'dentists:list' %}" class="book-button">Browse Dentists</a>
+        </div>
+
+        <div class="dashboard-card">
+            <h2>Not sure which dentist you need?</h2>
+            <p>Describe your problem and let the AI assistant suggest a specialty.</p>
+            <a href="{% url 'ai_assistant:assistant' %}" class="book-button">Ask the AI Assistant</a>
+        </div>
+    </div>
+{% endblock %}

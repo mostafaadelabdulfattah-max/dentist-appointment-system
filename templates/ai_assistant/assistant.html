@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}AI Appointment Assistant{% endblock %}
+{% block content %}
+    <h1>AI Appointment Assistant</h1>
+    <p>Describe your dental problem, and we'll suggest an appropriate specialty and show real available appointments.</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <label for="problem_description">What dental problem are you experiencing?</label><br>
+        <textarea id="problem_description" name="problem_description" rows="4" required>{{ problem_description }}</textarea>
+        <button type="submit">Get Recommendation</button>
+    </form>
+
+    {% if recommendation %}
+        <div class="ai-recommendation">
+            <p class="disclaimer">{{ recommendation.disclaimer }}</p>
+
+            <h2>Recommended specialty: {{ recommendation.specialty_name }}</h2>
+
+            {% if not recommendation.specialty %}
+                <p>No dentists with this specialty have been added to the system yet.
+                   <a href="{% url 'dentists:list' %}">Browse all dentists</a> instead.</p>
+            {% elif not recommendation.dentists %}
+                <p>We found dentists in this specialty, but none currently have available
+                   appointments in the next two weeks.</p>
+            {% else %}
+                <p>Here are dentists with this specialty and their next available appointments:</p>
+                <ul class="ai-dentist-list">
+                    {% for result in recommendation.dentists %}
+                        <li class="dentist-card">
+                            <strong>{{ result.dentist }}</strong>
+                            <ul>
+                                {% for slot in result.slots %}
+                                    <li>
+                                        {{ slot.date }} at {{ slot.time|time:"H:i" }}
+                                        — <a href="{% url 'appointments:book' result.dentist.id %}">Book with this dentist</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <p><a href="{% url 'dentists:list' %}">Or browse all dentists yourself</a></p>
+        </div>
+    {% endif %}
+{% endblock %}

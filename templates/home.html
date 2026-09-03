@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+    <h1>Welcome to the Dentist Appointment System</h1>
+    <p>Browse our dentists, check real-time availability, and book a dental appointment online.</p>
+
+    {% if user.is_authenticated %}
+        {% if user.patient_profile %}
+            <p><a href="{% url 'appointments:patient_dashboard' %}" class="book-button">Go to your dashboard</a></p>
+        {% elif user.dentist_profile %}
+            <p><a href="{% url 'appointments:dentist_dashboard' %}" class="book-button">Go to your dashboard</a></p>
+        {% endif %}
+    {% else %}
+        <p>
+            <a href="{% url 'accounts:register' %}" class="book-button">Register</a>
+            or <a href="{% url 'accounts:login' %}">log in</a> to get started.
+        </p>
+    {% endif %}
+
+    <p><a href="{% url 'dentists:list' %}">Browse our dentists</a> — no account needed to look around.</p>
+{% endblock %}
